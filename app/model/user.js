@@ -14,5 +14,6 @@ module.exports = app => {
     updated_at: DATE,
   });
 
+  User.sync({});
   return User;
 };
