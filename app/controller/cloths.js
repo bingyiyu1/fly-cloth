@@ -3,6 +3,7 @@
  */
 'use strict';
 const Controller = require('egg').Controller;
+const _ = require('lodash');
 
 function toInt(str) {
   if (typeof str === 'number') return str;
@@ -24,16 +25,16 @@ class ClothController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    let { length, weight, threads, patternId, patternName } = ctx.request.body;
+    let { length, weight, threads, storageDate, pattern_id, patternName } = ctx.request.body;
     let cloth;
     if (patternName) {
       const existsPattern = await ctx.model.Pattern.findOne({ where: { name: patternName } });
-      patternId = patternId || (existsPattern && existsPattern.id);
+      pattern_id = pattern_id || (existsPattern && existsPattern.id);
     }
-    if (patternId) {
-      cloth = await ctx.model.Cloth.create({ length, weight, threads, pattern_id: patternId });
+    if (pattern_id) {
+      cloth = await ctx.model.Cloth.create({ length, weight, threads, storageDate, pattern_id });
     } else {
-      cloth = await ctx.model.Cloth.create({ length, weight, threads, pattern: {
+      cloth = await ctx.model.Cloth.create({ length, weight, threads, storageDate, pattern: {
         name: patternName,
       } }, {
         include: [ ctx.model.Pattern ],
@@ -46,27 +47,27 @@ class ClothController extends Controller {
   async update() {
     const ctx = this.ctx;
     const id = toInt(ctx.params.id);
-    const user = await ctx.model.Cloth.findById(id);
-    if (!user) {
+    const cloth = await ctx.model.Cloth.findById(id);
+    if (!cloth) {
       ctx.status = 404;
       return;
     }
 
-    const { name, age } = ctx.request.body;
-    await user.update({ name, age });
-    ctx.body = user;
+    const updateBody = _.pick(ctx.request.body, [ 'length', 'weight', 'threads', 'storageDate', 'pattern_id' ]);
+
+    await cloth.update(updateBody);
+    ctx.body = cloth;
   }
 
   async destroy() {
     const ctx = this.ctx;
     const id = toInt(ctx.params.id);
-    const user = await ctx.model.Cloth.findById(id);
-    if (!user) {
+    const cloth = await ctx.model.Cloth.findById(id);
+    if (!cloth) {
       ctx.status = 404;
       return;
     }
-
-    await user.destroy();
+    await cloth.destroy();
     ctx.status = 200;
   }
 }
