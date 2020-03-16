@@ -3,8 +3,8 @@
  */
 'use strict';
 
-module.exports = options => {
-  return async function wangxuelei(ctx, next) {
+module.exports = () => {
+  return async function requestUrlLog(ctx, next) {
     const start = new Date();
     await next();
     const end = new Date();
