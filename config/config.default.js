@@ -7,13 +7,13 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1546672906609_5906';
 
   // add your config here
-  config.middleware = [ 'wangxuelei' ];
+  config.middleware = [ 'requestUrlLog' ];
   config.sequelize = {
     dialect: 'mysql',
     host: '127.0.0.1',
     port: 3306,
     password: 'root',
-    database: 'egg-sequelize-doc-default',
+    database: 'fly-cloth-dev',
   };
 
   return config;

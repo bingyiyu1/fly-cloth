@@ -21,7 +21,6 @@ module.exports = app => {
   });
 
   Silk.associate = function() {
-    app.model.Silk.hasMany(app.model.Cloth, { as: 'cloths' });
     app.model.Silk.hasMany(app.model.MeridionalBobbin, { as: 'meridionalBobbins' });
   };
 

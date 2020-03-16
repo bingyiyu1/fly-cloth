@@ -7,15 +7,31 @@ module.exports = app => {
   const { INTEGER, DOUBLE, DATE, NOW } = app.Sequelize;
 
   const Cloth = app.model.define('cloth', {
-    id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+    id: {
+      type: INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     // 长度，单位米
-    length: { type: DOUBLE, allowNull: false },
+    length: {
+      type: DOUBLE,
+      allowNull: false,
+    },
     // 重量，单位千克
-    weight: { type: DOUBLE, allowNull: false },
+    weight: {
+      type: DOUBLE,
+      allowNull: false,
+    },
     // 牙数
-    threads: { type: DOUBLE, allowNull: false },
+    threads: {
+      type: DOUBLE,
+      allowNull: false,
+    },
     // 入库日期
-    storageDate: { type: DATE, defaultValue: NOW },
+    storageDate: {
+      type: DATE,
+      defaultValue: NOW,
+    },
     // 花样
     pattern_id: INTEGER,
     // 加工户
@@ -23,11 +39,11 @@ module.exports = app => {
     // 织布机
     loom_id: INTEGER,
     // 蛏子
-    meridionalBobbin_id: INTEGER,
+    meridional_bobbin_id: INTEGER,
     // 纬线类型
-    latitudinalSilk_id: INTEGER,
+    latitudinal_silk_id: INTEGER,
     // 经线类型
-    meridionalSilk_id: INTEGER,
+    meridional_silk_id: INTEGER,
   }, {
     timestamps: true,
     // 虚拟属性
@@ -43,9 +59,19 @@ module.exports = app => {
     app.model.Cloth.belongsTo(app.model.Pattern, { foreignKey: 'pattern_id' });
     app.model.Cloth.belongsTo(app.model.Processor, { foreignKey: 'processor_id' });
     app.model.Cloth.belongsTo(app.model.Loom, { foreignKey: 'loom_id' });
-    app.model.Cloth.belongsTo(app.model.MeridionalBobbin, { foreignKey: 'meridionalBobbin_id' });
-    app.model.Cloth.belongsTo(app.model.Silk, { foreignKey: 'latitudinalSilk_id' });
-    app.model.Cloth.belongsTo(app.model.Silk, { foreignKey: 'meridionalSilk_id' });
+    app.model.Cloth.belongsTo(app.model.MeridionalBobbin, { foreignKey: 'meridional_bobbin_id' });
+    app.model.Cloth.belongsTo(app.model.Silk,
+      {
+        foreignKey: 'latitudinal_silk_id',
+        as: 'latitudinal_silk',
+      }
+    );
+    app.model.Cloth.belongsTo(app.model.Silk,
+      {
+        foreignKey: 'meridional_silk_id',
+        as: 'meridional_silk',
+      }
+    );
   };
 
   return Cloth;

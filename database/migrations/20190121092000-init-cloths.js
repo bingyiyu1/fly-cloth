@@ -21,13 +21,13 @@ module.exports = {
       loom_id: { type: INTEGER, references: { model: 'looms', key: 'id' }, onUpdate: 'cascade',
         onDelete: 'restrict' },
       // 蛏子
-      meridionalBobbin_id: { type: INTEGER, references: { model: 'meridionalBobbins', key: 'id' }, onUpdate: 'cascade',
+      meridional_bobbin_id: { type: INTEGER, references: { model: 'meridionalBobbins', key: 'id' }, onUpdate: 'cascade',
         onDelete: 'restrict' },
       // 纬线
-      latitudinalSilk_id: { type: INTEGER, references: { model: 'silks', key: 'id' }, onUpdate: 'cascade',
+      latitudinal_silk_id: { type: INTEGER, references: { model: 'silks', key: 'id' }, onUpdate: 'cascade',
         onDelete: 'restrict' },
       // 经线
-      meridionalSilk_id: { type: INTEGER, references: { model: 'silks', key: 'id' }, onUpdate: 'cascade',
+      meridional_silk_id: { type: INTEGER, references: { model: 'silks', key: 'id' }, onUpdate: 'cascade',
         onDelete: 'restrict' },
       // 入库日期
       storageDate: { type: DATE, defaultValue: NOW },
