@@ -14,4 +14,16 @@ module.exports = app => {
     name: factory.sequence('User.name', n => `name_${n}`),
     age: 18,
   });
+
+  // 定义 cloth 和默认数据
+  factory.define('cloth', app.model.Cloth, {
+    length: 80,
+    weight: 50,
+    threads: 25,
+  });
+
+  // 定义 pattern 和默认数据
+  factory.define('pattern', app.model.Pattern, {
+    name: factory.sequence('Pattern.name', n => `pattern${n}`),
+  });
 };

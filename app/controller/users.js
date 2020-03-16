@@ -13,8 +13,12 @@ function toInt(str) {
 class UserController extends Controller {
   async index() {
     const ctx = this.ctx;
-    const query = { limit: toInt(ctx.query.limit), offset: toInt(ctx.query.offset) };
-    ctx.body = await ctx.model.User.findAll(query);
+    const { page = 1, pageSize = 20 } = ctx.query;
+    const query = { limit: toInt(pageSize), offset: toInt((page - 1) * pageSize) };
+    const result = await ctx.model.User.findAndCountAll(query);
+    ctx.body = { data: result.rows, pageInfo: { pageCount: Math.ceil(result.count / pageSize),
+      page,
+      itemCount: result.count } };
   }
 
   async show() {
