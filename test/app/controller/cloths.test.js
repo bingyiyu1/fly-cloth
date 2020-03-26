@@ -2,7 +2,7 @@
  * Created by wangxuelei on 2019/1/10.
  */
 'use strict';
-const { assert, app } = require('egg-mock/bootstrap');
+const {assert, app} = require('egg-mock/bootstrap');
 require('../../clearAll');
 
 describe('test/app/service/cloths.test.js', async () => {
@@ -24,21 +24,21 @@ describe('test/app/service/cloths.test.js', async () => {
         });
       assert(res.status === 201);
       assert(res.body.id);
-      const newPattern = await app.model.Pattern.findOne({ where: { id: res.body.pattern_id } });
+      const newPattern = await app.model.Pattern.findOne({where: {id: res.body.pattern_id}});
       assert.deepEqual(newPattern.name, 'xx');
       res = await app.httpRequest().get(`/cloths/${res.body.id}`);
       assert(res.status === 200);
     });
     it('should create a new cloth with given pattern_id', async () => {
       app.mockCsrf();
-      const pattern = await app.model.Pattern.create({ name: 'xx' });
+      const pattern = await app.model.Pattern.create({name: 'xx'});
       let res = await app.httpRequest().post('/cloths/create')
         .send({
           length: 10, weight: 10, threads: 20, pattern_id: pattern.id,
         });
       assert(res.status === 201);
       assert(res.body.id);
-      const newPattern = await app.model.Pattern.findOne({ where: { id: res.body.pattern_id } });
+      const newPattern = await app.model.Pattern.findOne({where: {id: res.body.pattern_id}});
       assert.deepEqual(newPattern.name, 'xx');
       res = await app.httpRequest().get(`/cloths/${res.body.id}`);
       assert(res.status === 200);
@@ -49,7 +49,7 @@ describe('test/app/service/cloths.test.js', async () => {
     it('should update a cloth', async () => {
       const user = await app.factory.create('cloth');
       app.mockCsrf();
-      const res = await app.httpRequest().post(`/cloths/${user.id}`).send({ length: 20 });
+      const res = await app.httpRequest().post(`/cloths/${user.id}`).send({length: 20});
       assert(res.status === 200);
       assert.deepEqual(res.body.length, 20);
     });

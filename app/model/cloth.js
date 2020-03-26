@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = app => {
-  const { INTEGER, DOUBLE, DATE, NOW } = app.Sequelize;
+  const {INTEGER, DOUBLE, DATE, NOW} = app.Sequelize;
 
   const Cloth = app.model.define('cloth', {
     id: {
@@ -49,17 +49,17 @@ module.exports = app => {
     // 虚拟属性
     getterMethods: {
       // 克重量,单位克/米
-      gramPerMeter() {
+      gramPerMeter () {
         return Math.fround(this.weight / this.length * 1000);
       },
     },
   });
 
-  Cloth.associate = function() {
-    app.model.Cloth.belongsTo(app.model.Pattern, { foreignKey: 'pattern_id' });
-    app.model.Cloth.belongsTo(app.model.Processor, { foreignKey: 'processor_id' });
-    app.model.Cloth.belongsTo(app.model.Loom, { foreignKey: 'loom_id' });
-    app.model.Cloth.belongsTo(app.model.MeridionalBobbin, { foreignKey: 'meridional_bobbin_id' });
+  Cloth.associate = function () {
+    app.model.Cloth.belongsTo(app.model.Pattern, {foreignKey: 'pattern_id'});
+    app.model.Cloth.belongsTo(app.model.Processor, {foreignKey: 'processor_id'});
+    app.model.Cloth.belongsTo(app.model.Loom, {foreignKey: 'loom_id'});
+    app.model.Cloth.belongsTo(app.model.MeridionalBobbin, {foreignKey: 'meridional_bobbin_id'});
     app.model.Cloth.belongsTo(app.model.Silk,
       {
         foreignKey: 'latitudinal_silk_id',

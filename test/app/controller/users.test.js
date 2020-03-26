@@ -2,7 +2,7 @@
  * Created by wangxuelei on 2019/1/5.
  */
 'use strict';
-const { assert, app } = require('egg-mock/bootstrap');
+const {assert, app} = require('egg-mock/bootstrap');
 require('../../clearAll');
 
 describe('test/app/service/users.test.js', () => {
