@@ -5,7 +5,9 @@
   "private": true,
   "dependencies": {
     "bluebird": "^3.5.3",
+    "dataloader": "^2.0.0",
     "egg": "^2.2.1",
+    "egg-graphql": "^2.7.0",
     "egg-passport": "^2.1.1",
     "egg-passport-local": "^1.2.1",
     "egg-scripts": "^2.5.0",

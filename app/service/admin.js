@@ -53,8 +53,14 @@ class AdminService extends Service {
     if (!admin) {
       throw new Error('手机号尚未注册');
     }
+    if (typeof password === 'number') {
+      password = password.toString();
+    }
+    if (typeof password !== 'string') {
+      throw new Error('密码输入错误');
+    }
     const userPasswordBuffer = Buffer.from(password);
-    const result = await this.securePwd.verify(userPasswordBuffer, admin.password);
+    const result = await this.securePwd.verify(userPasswordBuffer, Buffer.from(admin.password));
     if (_.includes([ securePassword.INVALID_UNRECOGNIZED_HASH, securePassword.INVALID ], result)) {
       throw new Error('密码验证失败');
     }

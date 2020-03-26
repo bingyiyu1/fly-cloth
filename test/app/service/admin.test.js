@@ -48,4 +48,28 @@ describe('test/app/service/admin.test.js', () => {
     });
   });
 
+  describe('verify', () => {
+    it('should verify success', async () => {
+      await service.admin.createAdmin(1, 2);
+      const r = await service.admin.verify(1, 2);
+      assert(r.phone === 1);
+      assert.notEqual(2, r.password);
+    });
+    it('should verify fail when phone not exists', async () => {
+      try {
+        await service.admin.verify(1, 2);
+      } catch (e) {
+        assert.deepEqual(e.message, '手机号尚未注册');
+      }
+    });
+    it('should verify fail when password invalid', async () => {
+      try {
+        await service.admin.createAdmin(1, 2);
+        await service.admin.verify(1, 3);
+      } catch (e) {
+        assert.deepEqual(e.message, '密码验证失败');
+      }
+    });
+  });
+
 });
