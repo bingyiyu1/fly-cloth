@@ -43,7 +43,8 @@ class AdminService extends Service {
       }
       throw e;
     }
-    return admin;
+    delete admin.password;
+    return admin.toJSON();
   }
 
   async verify (phone, password) {

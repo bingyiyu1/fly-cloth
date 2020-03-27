@@ -28,7 +28,11 @@ class AdminConnector {
   // }
 
   create (phone, password) {
-    return this.ctx.service.admin.create(phone, password);
+    return this.ctx.service.admin.createAdmin(phone, password);
+  }
+
+  verify (phone, password) {
+    return this.ctx.service.admin.verify(phone, password);
   }
 
 }

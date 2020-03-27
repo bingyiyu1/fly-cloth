@@ -19,7 +19,7 @@ describe('test/app/service/admin.test.js', () => {
       const query = JSON.stringify({
         query: `
       mutation {
-        create(phone: ${1}, password: "${2}") {
+        create(phone: "1", password: "2") {
           phone
           password
         }
@@ -28,9 +28,7 @@ describe('test/app/service/admin.test.js', () => {
       });
 
       const r = await ctx.service.graphql.query(query);
-      console.log(r)
-      assert(r.phone === 1);
-      assert.notEqual(2, r.password);
+      assert.deepEqual(r.data.create.phone, '1');
     });
   });
 
