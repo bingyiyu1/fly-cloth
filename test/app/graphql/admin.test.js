@@ -29,7 +29,7 @@ describe('test/app/service/admin.test.js', () => {
 
       const r = await ctx.service.graphql.query(query);
       assert.deepEqual(r.data.create.phone, '1');
-      
+
     });
   });
 

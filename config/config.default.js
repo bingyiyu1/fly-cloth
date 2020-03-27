@@ -16,6 +16,13 @@ module.exports = appInfo => {
     database: 'fly-cloth-dev',
   };
 
+  // https://blog.csdn.net/weixin_43704471/article/details/90763103
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+  };
+
   exports.graphql = {
     router: '/graphql',
     // 是否加载到 app 上，默认开启
