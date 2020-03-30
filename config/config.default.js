@@ -26,6 +26,19 @@ module.exports = appInfo => {
     agent: true,
   };
 
+  config.passportLocal = {
+    usernameField: 'phone',
+    passwordField: 'password',
+  };
+
+  config.session = {
+    maxAge: 7 * 24 * 3600 * 1000, // ms
+    key: 'EGG_SESS',
+    httpOnly: true,
+    encrypt: true,
+  };
+
+
   // https://blog.csdn.net/weixin_43704471/article/details/90763103
   config.security = {
     csrf: {

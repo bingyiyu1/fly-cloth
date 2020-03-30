@@ -31,9 +31,10 @@ class AdminConnector {
     return this.ctx.service.admin.createAdmin(phone, password);
   }
 
-  verify (phone, password) {
-    const admin = this.ctx.service.admin.verify(phone, password);
-    this.ctx.login(admin);
+  async verify (phone, password) {
+    const admin = await this.ctx.service.admin.verify(phone, password);
+    delete admin.password;
+    await this.ctx.login(admin);
     return !!admin;
   }
 
