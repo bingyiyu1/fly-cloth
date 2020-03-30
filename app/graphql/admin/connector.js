@@ -32,7 +32,9 @@ class AdminConnector {
   }
 
   verify (phone, password) {
-    return this.ctx.service.admin.verify(phone, password);
+    const admin = this.ctx.service.admin.verify(phone, password);
+    this.ctx.login(admin);
+    return !!admin;
   }
 
 }

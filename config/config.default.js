@@ -16,6 +16,16 @@ module.exports = appInfo => {
     database: 'fly-cloth-dev',
   };
 
+  exports.redis = {
+    client: {
+      host: '127.0.0.1',
+      port: '6379',
+      password: '',
+      db: '0',
+    },
+    agent: true,
+  };
+
   // https://blog.csdn.net/weixin_43704471/article/details/90763103
   config.security = {
     csrf: {

@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = () => {
-  return async function requestUrlLog(ctx, next) {
+  return async function requestUrlLog (ctx, next) {
     const start = new Date();
     await next();
     const end = new Date();

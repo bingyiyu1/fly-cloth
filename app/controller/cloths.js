@@ -5,38 +5,38 @@
 const Controller = require('egg').Controller;
 const _ = require('lodash');
 
-function toInt(str) {
+function toInt (str) {
   if (typeof str === 'number') return str;
   if (!str) return str;
   return parseInt(str, 10) || 0;
 }
 
 class ClothController extends Controller {
-  async index() {
+  async index () {
     const ctx = this.ctx;
-    const query = { limit: toInt(ctx.query.limit), offset: toInt(ctx.query.offset) };
+    const query = {limit: toInt(ctx.query.limit), offset: toInt(ctx.query.offset)};
     ctx.body = await ctx.model.Cloth.findAll(query);
   }
 
-  async show() {
+  async show () {
     const ctx = this.ctx;
     ctx.body = await ctx.model.Cloth.findByPk(toInt(ctx.params.id));
   }
 
-  async create() {
+  async create () {
     const ctx = this.ctx;
-    let { length, weight, threads, storageDate, pattern_id, patternName } = ctx.request.body;
+    let {length, weight, threads, storageDate, pattern_id, patternName} = ctx.request.body;
     let cloth;
     if (patternName) {
-      const existsPattern = await ctx.model.Pattern.findOne({ where: { name: patternName } });
+      const existsPattern = await ctx.model.Pattern.findOne({where: {name: patternName}});
       pattern_id = pattern_id || (existsPattern && existsPattern.id);
     }
     if (pattern_id) {
-      cloth = await ctx.model.Cloth.create({ length, weight, threads, storageDate, pattern_id });
+      cloth = await ctx.model.Cloth.create({length, weight, threads, storageDate, pattern_id});
     } else {
-      cloth = await ctx.model.Cloth.create({ length, weight, threads, storageDate, pattern: {
+      cloth = await ctx.model.Cloth.create({length, weight, threads, storageDate, pattern: {
         name: patternName,
-      } }, {
+      }}, {
         include: [ ctx.model.Pattern ],
       });
     }
@@ -44,7 +44,7 @@ class ClothController extends Controller {
     ctx.body = cloth;
   }
 
-  async update() {
+  async update () {
     const ctx = this.ctx;
     const id = toInt(ctx.params.id);
     const cloth = await ctx.model.Cloth.findById(id);
@@ -59,7 +59,7 @@ class ClothController extends Controller {
     ctx.body = cloth;
   }
 
-  async destroy() {
+  async destroy () {
     const ctx = this.ctx;
     const id = toInt(ctx.params.id);
     const cloth = await ctx.model.Cloth.findById(id);

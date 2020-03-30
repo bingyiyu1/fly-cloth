@@ -3,7 +3,6 @@
  */
 'use strict';
 const Controller = require('egg').Controller;
-const _ = require('lodash');
 
 class AdminController extends Controller {
 

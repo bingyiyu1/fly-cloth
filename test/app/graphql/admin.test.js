@@ -29,7 +29,25 @@ describe('test/app/service/admin.test.js', () => {
 
       const r = await ctx.service.graphql.query(query);
       assert.deepEqual(r.data.create.phone, '1');
+    });
+  });
 
+  describe('verify', () => {
+    it('should verify success', async () => {
+      await ctx.service.admin.createAdmin('1', '2');
+      const query = JSON.stringify({
+        query: `
+      query {
+        verify(phone: "1", password: "2") {
+          phone
+          password
+        }
+      }
+      `,
+      });
+      app.redis.set('1', '1');
+      const r = await ctx.service.graphql.query(query);
+      console.log(r);
     });
   });
 

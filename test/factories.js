@@ -3,7 +3,7 @@
  */
 'use strict';
 
-const { factory } = require('factory-girl');
+const {factory} = require('factory-girl');
 
 module.exports = app => {
   // 可以通过 app.factory 访问 factory 实例
